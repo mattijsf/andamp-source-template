@@ -12,7 +12,7 @@ android {
         // change this for your own source; README.md lists what else to rename
         applicationId = "nl.mattix.andamp.pack.template"
         targetSdk = 36
-        versionName = "0.1.0" // x-release-please-version
+        versionName = "0.2.0" // x-release-please-version
     }
 
     buildFeatures {
