@@ -27,6 +27,21 @@
             <intent-filter>
                 <action android:name="nl.mattix.andamp.source.BIND" />
             </intent-filter>
+            <!--
+              Optional: the mark Andamp shows beside this source's songs when the
+              listener has more than one source. Point MARK at a one-color drawable
+              and MARK_PIXELS at a string array of pixel art (# for ink, . for none,
+              up to nine rows of nine), and remove this comment around them.
+              Without them Andamp uses the shape of the launcher icon, or else the
+              first letter of SourceIdentity.LABEL.
+
+            <meta-data
+                android:name="nl.mattix.andamp.source.MARK"
+                android:resource="@drawable/andamp_mark" />
+            <meta-data
+                android:name="nl.mattix.andamp.source.MARK_PIXELS"
+                android:resource="@array/andamp_mark_pixels" />
+            -->
         </service>
 
         <activity
