@@ -52,6 +52,9 @@ Then make it play your music:
    `SourceService.whoIsHere`.
 3. Optionally set `SourceIdentity.UPDATES` and `SourceIdentity.HOME`, so Andamp can
    report a newer version and say where the source comes from.
+4. Optionally give your source a mark: the small picture Andamp shows beside its songs
+   when the listener has more than one source. The two `<meta-data>` entries are in the
+   manifest, commented out; see "The mark in lists" in source-packs.md.
 
 The contract is documented in the player's
 [source-packs.md](https://github.com/mattijsf/andamp/blob/main/docs/source-packs.md).
