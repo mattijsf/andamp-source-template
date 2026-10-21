@@ -1,7 +1,8 @@
 # Andamp source template
 
 The smallest music source [Andamp](https://github.com/mattijsf/andamp) can play from: one
-artist, one album, one song. Copy it to start a source of your own.
+artist, one album, one song, in one folder and one genre. Copy it to start a source of your
+own.
 
 A source is a separate app installed beside Andamp. Andamp finds it by the intent it
 answers, lists it under Preferences > Music sources and in the Media Library, and plays
@@ -13,7 +14,7 @@ what it decodes through its own equalizer, effects and visualizer.
 app/src/main/AndroidManifest.xml   the service Andamp binds, and the settings screen it opens
 SourceService.kt                   identity, sign-in state, library, and where a track's audio is
 SourceIdentity.kt                  scheme, label, launcher alias, update and home pages
-TemplateLibrary.kt                 artists, albums, tracks
+TemplateLibrary.kt                 artists, albums, tracks, folders, genres
 SettingsActivity.kt                the settings screen
 ```
 
@@ -48,11 +49,17 @@ Then make it play your music:
 
 1. Serve your library from `TemplateLibrary` and return each track's audio URL from
    `audioOf`. The template's song points at a URL that does not exist.
-2. Ask for a server or account in `SettingsActivity`, and report who is signed in from
+2. Serve its folders and genres from the same class, or leave them out. They fill FOLDERS
+   and GENRES in the Media Library's Lists tab, beside the phone's. Andamp asks for them
+   only because two `<meta-data>` entries in the manifest say the source gives them: remove
+   the entry of a view you do not give. A server that lists tracks with the paths of their
+   files can group them into folders with `TrackFolders` from the SDK. See "Folders and
+   genres" in source-packs.md.
+3. Ask for a server or account in `SettingsActivity`, and report who is signed in from
    `SourceService.whoIsHere`.
-3. Optionally set `SourceIdentity.UPDATES` and `SourceIdentity.HOME`, so Andamp can
+4. Optionally set `SourceIdentity.UPDATES` and `SourceIdentity.HOME`, so Andamp can
    report a newer version and say where the source comes from.
-4. Optionally give your source a mark: the small picture Andamp shows beside its songs
+5. Optionally give your source a mark: the small picture Andamp shows beside its songs
    when the listener has more than one source. The two `<meta-data>` entries are in the
    manifest, commented out; see "The mark in lists" in source-packs.md.
 

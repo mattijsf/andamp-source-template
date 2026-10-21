@@ -5,16 +5,25 @@ package nl.mattix.andamp.pack.template
 import nl.mattix.andamp.core.model.BrowseCapabilities
 import nl.mattix.andamp.core.model.LibraryAlbum
 import nl.mattix.andamp.core.model.LibraryArtist
+import nl.mattix.andamp.core.model.LibraryGroup
 import nl.mattix.andamp.core.model.Track
+import nl.mattix.andamp.core.playback.BrowseGroups
 import nl.mattix.andamp.core.playback.BrowseSource
 
 /**
- * The library of this source: one artist, one album, one song.
+ * The library of this source: one artist, one album, one song, in one folder
+ * and one genre.
  *
  * A real source asks a server here. Every track's address starts with this
  * source's scheme; the player hands the address back when the track is played.
+ *
+ * The folders and genres ([BrowseGroups]) fill FOLDERS and GENRES in the Media
+ * Library's Lists tab. Andamp asks for them because the manifest says this
+ * source gives them.
  */
-internal class TemplateLibrary : BrowseSource {
+internal class TemplateLibrary :
+    BrowseSource,
+    BrowseGroups {
     override val capabilities = BrowseCapabilities(hasArtists = true, hasAlbums = true)
 
     /** Always true: there is no sign-in and no server. */
@@ -32,9 +41,21 @@ internal class TemplateLibrary : BrowseSource {
 
     override suspend fun tracks(albumId: String): List<Track> = if (albumId == ALBUM) listOf(SONG) else emptyList()
 
+    /** A folder is named by its path from the top of the library, as the phone's folders are. */
+    override suspend fun folders(): List<LibraryGroup> =
+        listOf(LibraryGroup(id = FOLDER, name = "Music/An artist/An album", trackCount = 1))
+
+    override suspend fun folderTracks(id: String): List<Track> = if (id == FOLDER) listOf(SONG) else emptyList()
+
+    override suspend fun genres(): List<LibraryGroup> = listOf(LibraryGroup(id = GENRE, name = GENRE, trackCount = 1))
+
+    override suspend fun genreTracks(id: String): List<Track> = if (id == GENRE) listOf(SONG) else emptyList()
+
     companion object {
         private const val ARTIST = "An artist"
         private const val ALBUM = "album-1"
+        private const val FOLDER = "folder-1"
+        private const val GENRE = "A genre"
 
         /**
          * The audio URL of each row, by the id in its address. The example URL

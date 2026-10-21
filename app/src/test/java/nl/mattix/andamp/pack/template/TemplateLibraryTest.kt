@@ -21,6 +21,16 @@ class TemplateLibraryTest {
         }
 
     @Test
+    fun `its folder and its genre lead to its song`() =
+        runTest {
+            val folder = library.folders().single()
+            val genre = library.genres().single()
+            assertEquals(listOf(TemplateLibrary.SONG), library.folderTracks(folder.id))
+            assertEquals(listOf(TemplateLibrary.SONG), library.genreTracks(genre.id))
+            assertEquals(1, folder.trackCount)
+        }
+
+    @Test
     fun `every row is addressed with this source's scheme`() =
         runTest {
             library.albums().flatMap { library.tracks(it.id) }.forEach { track ->

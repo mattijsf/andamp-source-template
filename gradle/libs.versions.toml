@@ -6,7 +6,7 @@ ktlint = "1.8.0"
 detekt = "1.23.8"
 coroutines = "1.11.0"
 # Andamp's source SDK: source-api and source-common
-andampSdk = "0.1.0"
+andampSdk = "0.2.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
